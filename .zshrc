@@ -1,4 +1,3 @@
-
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/henryunite/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/henryunite/google-cloud-sdk/path.zsh.inc'; fi
 
