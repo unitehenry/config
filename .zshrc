@@ -14,7 +14,13 @@ export VISUAL="vi"
 # iCloud Directory
 export DOCS="/Users/henryunite/Library/Mobile Documents/com~apple~CloudDocs"
 
-# Password Fetcher
+# Credentials Fetcher
+alias username='
+  export PASS_BACK_PATH=$(pwd) && \
+  cd $DOCS/passwords && \
+  echo $(cat $(fzf) | grep "Username:" | cut -d ":" -f2) | pbcopy && \
+  cd $PASS_BACK_PATH && unset PASS_BACK_PATH'
+
 alias password='
   export PASS_BACK_PATH=$(pwd) && \
   cd $DOCS/passwords && \
