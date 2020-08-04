@@ -26,3 +26,5 @@ alias password='
   cd $DOCS/passwords && \
   echo $(cat $(fzf) | grep "Password:" | cut -d ":" -f2) | pbcopy && \
   cd $PASS_BACK_PATH && unset PASS_BACK_PATH'
+
+alias f='vi $(fzf)'
