@@ -30,3 +30,6 @@ alias p='npx prettier --write --single-quote $(fzf)'
 
 # What the Commit
 alias wtf='git commit -m "$(curl http://whatthecommit.com/index.txt)"'
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
