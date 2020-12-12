@@ -24,15 +24,14 @@ $ brew install tmux
 $ brew install vim
 ```
 
-## Mac OS
-
-Settings > Keyboard > Shortcuts > App Shortcuts
-
-"Move Window to Left of Screen" ^⌘H
-"Move Window to Right of Screen" ^⌘L
-
 ## Browser
 
 ```sh
 $ brew cask install chromium
+```
+
+## Vim Plugins
+
+```
+~/.vim/pack/plugins/start/{package-name}
 ```
