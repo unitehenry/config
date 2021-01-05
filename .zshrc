@@ -22,14 +22,22 @@ alias password='
   cd $PASS_BACK_PATH && unset PASS_BACK_PATH'
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# Fuzzy Finder
-alias f='vi $(fzf)'
+## Copy Directory
+alias c='echo $(pwd) | pbcopy'
 
-# Code Formatter
+## Fuzzy Finder
+alias f='echo $(fzf) | pbcopy'
+
+## Code Formatter
 alias p='npx prettier --write --single-quote $(fzf)'
 
-# What the Commit
+## What the Commit
 alias wtf='git commit -m "$(curl http://whatthecommit.com/index.txt)"'
+
+## Cheat
+cheat(){ curl https://cheat.sh/"$@"; }
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+
+export DYLD_LIBRARY_PATH=/usr/local/opt/openssl/lib:$DYLD_LIBRARY_PATH
