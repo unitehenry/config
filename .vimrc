@@ -4,7 +4,9 @@ set shiftwidth=2
 set expandtab
 set ai
 set number
-set hlsearch
+set incsearch
+set wildmenu
 set ruler
+set list
 set backspace=indent,eol,start
 highlight Comment ctermfg=green
