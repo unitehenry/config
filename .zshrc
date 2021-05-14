@@ -76,6 +76,28 @@ function generate-slide() {
   open "/tmp/$1.html";
 }
 
+## Encrypt : aes-256-cbc
+function encrypt-file() {
+  if [ -z $@ ]
+  then
+    echo -n "Enter Encrypt Phrase: "; read -s ENCRYPTINPUT; echo "\n";
+    echo $ENCRYPTINPUT | openssl enc -aes-256-cbc;
+    unset ENCRYPTINPUT;
+  else
+    openssl enc -aes-256-cbc -in $@;
+  fi
+}
+
+## Decrypt : aes-256-cbc
+function decrypt-file() {
+  if [ -z $@ ]
+  then
+    openssl enc -d -aes-256-cbc;
+  else
+    openssl enc -aes-256-cbc -d -in $@;
+  fi
+}
+
 ## Homebrew Install Script
 function install-homebrew() { /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; }
 
