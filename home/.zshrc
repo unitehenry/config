@@ -46,6 +46,11 @@ function format-file() {
   unset FILENAME; unset EXTENSION;
 }
 
+## Spellcheck
+function spellcheck-file() {
+  npx spellchecker-cli --files $@;
+}
+
 ## What the Commit
 function wtf() { git commit -am "$(curl http://whatthecommit.com/index.txt)"; }
 
