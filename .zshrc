@@ -53,7 +53,16 @@ function wtf() { git commit -am "$(curl http://whatthecommit.com/index.txt)"; }
 function cheat(){ curl https://cheat.sh/"$@"; }
 
 ## Generate Markdown
-function generate-md() { pandoc -s $@ -o "/tmp/$@.html"; open "/tmp/$@.html"; }
+function generate-doc() { 
+  if [ -n "$2" ]
+  then
+    pandoc -s $1 -c $2 -o "/tmp/$1.html";
+    cp $2 /tmp;
+  else
+    pandoc -s $1 -o "/tmp/$1.html"; 
+  fi
+  open "/tmp/$1.html";
+}
 
 ## NVM
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
