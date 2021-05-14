@@ -101,5 +101,5 @@ function decrypt-file() {
 ## Homebrew Install Script
 function install-homebrew() { /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; }
 
-source .nvmrc;
-source .rvmrc;
+source ~/.nvmrc;
+source ~/.rvmrc;
