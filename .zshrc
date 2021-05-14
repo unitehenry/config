@@ -64,6 +64,18 @@ function generate-doc() {
   open "/tmp/$1.html";
 }
 
+## Generate Slide
+function generate-slide() {
+  # https://revealjs.com/config/
+  pandoc -t revealjs \
+    -V progress="false" \
+    -V navigationMode="linear" \
+    -V transition="none" \
+    -s $1 -o "/tmp/$1.html";
+  cp -rf . /tmp;
+  open "/tmp/$1.html";
+}
+
 ## NVM
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
