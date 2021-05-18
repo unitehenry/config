@@ -6,7 +6,7 @@ export VISUAL="vi";
 export DOCS="/Users/henryunite/Library/Mobile Documents/com~apple~CloudDocs";
 
 # Work Directory
-export WORD="/Users/henryunite/bicycletransit";
+export WORK="/Users/henryunite/Projects/bicycletransit";
 
 # Credentials Fetcher
 function username() {
