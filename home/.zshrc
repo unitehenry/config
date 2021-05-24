@@ -59,10 +59,10 @@ function cheat(){ curl https://cheat.sh/"$@"; }
 
 ## Generate Markdown
 function generate-doc() { 
+  cp -rf . /tmp;
   if [ -n "$2" ]
   then
     pandoc -s $1 -c $2 -o "/tmp/$1.html";
-    cp $2 /tmp;
   else
     pandoc -s $1 -o "/tmp/$1.html"; 
   fi
