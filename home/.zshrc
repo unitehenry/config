@@ -73,6 +73,7 @@ function generate-doc() {
 function generate-slide() {
   # https://revealjs.com/config/
   pandoc -t revealjs \
+    -V controls="false" \
     -V progress="false" \
     -V navigationMode="linear" \
     -V transition="none" \
