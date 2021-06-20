@@ -107,5 +107,15 @@ function decrypt-file() {
 ## Homebrew Install Script
 function install-homebrew() { /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; }
 
+## Vundle Install Script
+function install-vundle() {
+  git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim;
+  sudo gem install vundle-cli;
+  if ! grep -Fxq 'set rtp+=~/.vim/bundle/Vundle.vim' ~/.vimrc
+  then
+    echo "\nset nocompatible\nfiletype off\nset rtp+=~/.vim/bundle/Vundle.vim\ncall vundle#begin()\n\nPlugin 'VundleVim/Vundle.vim'\n\ncall vundle#end()\nfiletype plugin indent on" >> ~/.vimrc;
+  fi
+}
+
 source ~/.nvmrc;
 source ~/.rvmrc;
