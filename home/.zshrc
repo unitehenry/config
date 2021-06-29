@@ -54,6 +54,16 @@ function spellcheck-file() {
 ## What the Commit
 function wtf() { git commit -am "$(curl http://whatthecommit.com/index.txt)"; }
 
+## Commit Count
+function commit-count() {
+  if [ -n "$1" ]
+  then
+    git rev-list --count $1;
+  else
+    echo "commit-count <branch-name>";
+  fi
+}
+
 ## Cheat
 function cheat(){ curl https://cheat.sh/"$@"; }
 
