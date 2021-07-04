@@ -1,7 +1,7 @@
 syntax on
 set tabstop=2
 set shiftwidth=2
-set expandtab "set expandtab!
+set expandtab "set expandtab! "retab
 set ai
 set number
 set incsearch
