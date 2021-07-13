@@ -41,6 +41,12 @@ function format-file() {
     return 0;
   fi
 
+  if [ $EXTENSION = 'sql' ]
+  then
+    npx sql-formatter-cli --file $@ --out $@;
+    return 0;
+  fi
+
   npx prettier --write --single-quote $@;
 
   unset FILENAME; unset EXTENSION;
