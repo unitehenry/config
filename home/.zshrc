@@ -3,10 +3,10 @@ export EDITOR="vi";
 export VISUAL="vi";
 
 # iCloud Directory
-export DOCS="/Users/henryunite/Library/Mobile Documents/com~apple~CloudDocs";
+export DOCS="/Users/henry/Library/Mobile Documents/com~apple~CloudDocs";
 
 # Work Directory
-export WORK="/Users/henryunite/Projects/bicycletransit";
+export WORK="/Users/henry/Projects/lula";
 
 # Credentials Fetcher
 function username() {
