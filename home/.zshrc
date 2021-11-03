@@ -133,5 +133,11 @@ function install-vundle() {
   fi
 }
 
+function clear-docker() {
+  docker system prune -a -f --volumes
+}
+
+export VAULT_ADDR=https://vault.stallions.dev/
+source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc;
 source ~/.nvmrc;
 source ~/.rvmrc;
