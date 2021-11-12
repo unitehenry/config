@@ -137,6 +137,10 @@ function clear-docker() {
   docker system prune -a -f --volumes
 }
 
+function gcloud-adc() {
+  gcloud auth login --update-adc
+}
+
 export VAULT_ADDR=https://vault.stallions.dev/
 source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc;
 source ~/.nvmrc;
