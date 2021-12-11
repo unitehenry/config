@@ -8,19 +8,35 @@ export DOCS="/Users/henry/Library/Mobile Documents/com~apple~CloudDocs";
 # Work Directory
 export WORK="/Users/henry/Projects/lula";
 
-# Credentials Fetcher
-function username() {
-  export PASS_BACK_PATH=$(pwd);
-  cd $DOCS/passwords;
-  echo $(cat $(fzf) | grep "Username:" | cut -d ":" -f2) | pbcopy;
-  cd $PASS_BACK_PATH && unset PASS_BACK_PATH;
+# Credentials Management
+function op-create() {
+  op get template Login > /tmp/login.json;
+  if [ -n "$3" ]
+  then
+    echo $(cat /tmp/login.json | jq -r -c "(.fields[] | select(.designation | contains(\"username\"))) .value = \"$2\"") > /tmp/login.json;
+    echo $(cat /tmp/login.json | jq -r -c "(.fields[] | select(.designation | contains(\"password\"))) .value = \"$3\"") > /tmp/login.json;
+    op create item Login --template /tmp/login.json --title $1;
+  else
+    echo $(cat /tmp/login.json | jq -r -c "(.fields[] | select(.designation | contains(\"username\"))) .value = \"$2\"") > /tmp/login.json;
+    op create item Login --template /tmp/login.json --title $1 --generate-password;
+  fi
+  rm /tmp/login.json;
 }
 
-function password() {
-  export PASS_BACK_PATH=$(pwd);
-  cd $DOCS/passwords;
-  echo $(cat $(fzf) | grep "Password:" | cut -d ":" -f2) | pbcopy;
-  cd $PASS_BACK_PATH && unset PASS_BACK_PATH;
+function op-list() {
+  op list items | jq -c -r '.[].overview.title';
+}
+
+function op-username() {
+  op get item $@ | jq -c -r '.details.fields[] | select(.designation | contains("username")) | .value';
+}
+
+function op-password() {
+  op get item $@ | jq -c -r '.details.fields[] | select(.designation | contains("password")) | .value';
+}
+
+function op-delete() {
+  op delete item $@;
 }
 
 ## Code Formatter
