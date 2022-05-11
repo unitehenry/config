@@ -157,6 +157,113 @@ function gcloud-adc() {
   gcloud auth login --update-adc
 }
 
+function vs() {
+    # Verify inputs
+    environment="$1"
+    if [ "$environment" != "common" ] && [ "$environment" != "staging" ] && [ "$environment" != "production" ]; then
+        echo "\"$environment\" is not a valid environment."
+        return 1
+    fi
+
+    # Setup
+    [ ! -d ~/.vault-tokens ] && mkdir ~/.vault-tokens
+
+    # Move the current environment's token to the correct location
+    if [ -f ~/.vault-tokens/current-environment ] && [ -f ~/.vault-token ]; then
+        current="$(cat ~/.vault-tokens/current-environment)"
+        cp ~/.vault-token ~/.vault-tokens/${current}
+    fi
+
+    # Set the new current environment
+    echo "${environment}" > ~/.vault-tokens/current-environment
+
+    # Set the correct vault address
+    if [ "$environment" = "common" ]; then
+        export VAULT_ADDR="https://vault.stallions.dev"
+    else
+        export VAULT_ADDR="https://vault.${environment}.stallions.dev"
+    fi
+
+    # Get the token from the current environment if it exist
+    if [ -f ~/.vault-tokens/${environment} ] ; then
+        cp ~/.vault-tokens/${environment} ~/.vault-token
+    fi
+
+    # Prompt login if the token is not valid
+    if ! vault token lookup > /dev/null; then
+        vault login --method oidc
+    fi
+}
+
+function mmdc() {
+  npx @mermaid-js/mermaid-cli $@;
+}
+
+function impersonate() {
+    if [ -z "$1" ]; then
+        echo "Must provide a service account to impersonate."
+        return 1
+    fi
+    gcloud config set auth/impersonate_service_account "$1"
+}
+
+function unimpersonate() {
+    gcloud config unset auth/impersonate_service_account
+}
+
+function kill-docker() {
+  killall Docker && open /Applications/Docker.app;
+}
+
+function list-ports() {
+  sudo lsof -i -P | grep LISTEN | grep :$PORT;
+}
+
+function cloudsql() {
+    # Set the environment
+    ENVIRONMENT="${1}"
+    if [ "${ENVIRONMENT:-}" = "" ]; then
+        echo "Must pass in the environment to connect to."
+        return 1
+    fi
+
+    # Get the ID for this environment's storage project
+    PROJECT_ID=$(gcloud projects list --filter="NAME : ${ENVIRONMENT}-storage-*" --format="value(PROJECT_ID)")
+    echo "Project: ${PROJECT_ID}"
+
+    # Get the name of the Cloud SQL instance in this project
+    INSTANCE=$(gcloud sql instances list --project="${PROJECT_ID}" --limit 1 --format "value(NAME)")
+    echo "Instance: ${INSTANCE}"
+
+    # Get the connection name from this instance
+    CONNECTION_NAME=$(gcloud sql instances describe "${INSTANCE}" --project "${PROJECT_ID}" --format "value(connectionName)")
+    echo "Connection Name: ${CONNECTION_NAME}"
+
+    # Connect to this instance using the cloud_sql_proxy
+    cloud_sql_proxy -instances="${CONNECTION_NAME}=tcp:54320"
+}
+
+function connect() {
+    # Set the context
+    CONTEXT=${1}
+
+    export PGUSER=$(vault kv get -field=username secrets/${CONTEXT}/postgres-terraform)
+    export PGPASSWORD=$(vault kv get -field=password "secrets/${CONTEXT}/postgres-terraform")
+    psql -h 127.0.0.1 -p 54320  -d "${CONTEXT}"
+}
+
+function uuid() {
+    uuidgen | tr '[:upper:]' '[:lower:]'
+}
+
+function kex() {
+  NS="$1"
+  NAME="$2"
+  ENTRYPOINT="${3:-/bin/bash}"
+  POD=$(kubectl get pod -n $NS -l "app.kubernetes.io/name=$NAME" -o name | head -n 1)
+  kubectl exec -it -n $NS $POD -c identity-service -- "${ENTRYPOINT}"
+}
+
 export VAULT_ADDR=https://vault.stallions.dev/
 source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc;
 source ~/.nvmrc;
