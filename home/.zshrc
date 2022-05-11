@@ -3,40 +3,40 @@ export EDITOR="vi";
 export VISUAL="vi";
 
 # iCloud Directory
-export DOCS="/Users/henry/Library/Mobile Documents/com~apple~CloudDocs";
+export DOCS="/Users/$(whoami)/Library/Mobile Documents/com~apple~CloudDocs";
 
 # Work Directory
-export WORK="/Users/henry/Projects/lula";
+export WORK="/Users/$(whoami)/Projects/lula";
 
 # Credentials Management
 function op-create() {
-  op get template Login > /tmp/login.json;
+  op item template get Login > /tmp/login.json;
   if [ -n "$3" ]
   then
-    echo $(cat /tmp/login.json | jq -r -c "(.fields[] | select(.designation | contains(\"username\"))) .value = \"$2\"") > /tmp/login.json;
-    echo $(cat /tmp/login.json | jq -r -c "(.fields[] | select(.designation | contains(\"password\"))) .value = \"$3\"") > /tmp/login.json;
-    op create item Login --template /tmp/login.json --title $1;
+    echo $(cat /tmp/login.json | jq -r -c "(.fields[] | select(.id | contains(\"username\"))) .value = \"$2\"") > /tmp/login.json;
+    echo $(cat /tmp/login.json | jq -r -c "(.fields[] | select(.id | contains(\"password\"))) .value = \"$3\"") > /tmp/login.json;
+    op item create --template /tmp/login.json --title $1;
   else
-    echo $(cat /tmp/login.json | jq -r -c "(.fields[] | select(.designation | contains(\"username\"))) .value = \"$2\"") > /tmp/login.json;
-    op create item Login --template /tmp/login.json --title $1 --generate-password;
+    echo $(cat /tmp/login.json | jq -r -c "(.fields[] | select(.id | contains(\"username\"))) .value = \"$2\"") > /tmp/login.json;
+    op item create --template /tmp/login.json --title $1 --generate-password;
   fi
   rm /tmp/login.json;
 }
 
 function op-list() {
-  op list items | jq -c -r '.[].overview.title';
+  op item list --format=json | jq -c -r '.[].title';
 }
 
 function op-username() {
-  op get item $@ | jq -c -r '.details.fields[] | select(.designation | contains("username")) | .value';
+ op item get $@ --format=json | jq -c -r '.fields[] | select(.id | contains("username")) | .value';
 }
 
 function op-password() {
-  op get item $@ | jq -c -r '.details.fields[] | select(.designation | contains("password")) | .value';
+  op item get $@ --format=json | jq -c -r '.fields[] | select(.id | contains("password")) | .value';
 }
 
 function op-delete() {
-  op delete item $@;
+  op item delete $@;
 }
 
 ## Code Formatter
