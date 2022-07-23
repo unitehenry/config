@@ -264,6 +264,14 @@ function kex() {
   kubectl exec -it -n $NS $POD -c identity-service -- "${ENTRYPOINT}"
 }
 
+function esproxy() {
+  # set kubernetes network in docker
+  PORT="${1:-9000}"
+  kubectl port-forward -n eventstore service/eventstore-haproxy "${PORT}:80" &
+  open "http://127.0.0.1:${PORT}/web/index.html#/"
+  fg
+}
+
 export VAULT_ADDR=https://vault.stallions.dev/
 source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc;
 source ~/.nvmrc;
