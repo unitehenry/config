@@ -18,6 +18,7 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
+Plugin 'jparise/vim-graphql'
 Plugin 'drtom/fsharp-vim'
 Plugin 'calviken/vim-gdscript3'
 Plugin 'VundleVim/Vundle.vim'
