@@ -256,6 +256,10 @@ function uuid() {
     uuidgen | tr '[:upper:]' '[:lower:]'
 }
 
+function clear-branches() {
+  git branch --merged | grep -v \* | xargs git branch -D 
+}
+
 function kex() {
   NS="$1"
   NAME="$2"
