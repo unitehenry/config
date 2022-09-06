@@ -199,6 +199,10 @@ function mmdc() {
   npx @mermaid-js/mermaid-cli $@;
 }
 
+function use-gcloud-project () {
+  gcloud config set project "$1";
+}
+
 function impersonate() {
     if [ -z "$1" ]; then
         echo "Must provide a service account to impersonate."
