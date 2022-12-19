@@ -8,6 +8,9 @@ export DOCS="/Users/$(whoami)/Library/Mobile Documents/com~apple~CloudDocs";
 # Work Directory
 export WORK="/Users/$(whoami)/Projects/lula";
 
+# Vault Lula
+export VAULT_ADDR=https://vault.stallions.dev/
+
 # Credentials Management
 function op-create() {
   op item template get Login > /tmp/login.json;
@@ -73,10 +76,9 @@ function spellcheck-file() {
   npx spellchecker-cli --files $@;
 }
 
-## What the Commit
+## Git
 function wtf() { git commit -am "$(curl http://whatthecommit.com/index.txt)"; }
 
-## Commit Count
 function commit-count() {
   if [ -n "$1" ]
   then
@@ -84,6 +86,10 @@ function commit-count() {
   else
     echo "commit-count <branch-name>";
   fi
+}
+
+function clear-branches() {
+  git branch --merged | grep -v \* | xargs git branch -D 
 }
 
 ## Cheat
@@ -112,6 +118,11 @@ function generate-slide() {
     -s $1 -o "/tmp/$1.html";
   cp -rf . /tmp;
   open "/tmp/$1.html";
+}
+
+## Generate Mermaid Docs
+function mmdc() {
+  npx @mermaid-js/mermaid-cli $@;
 }
 
 ## Encrypt : aes-256-cbc
@@ -149,10 +160,12 @@ function install-vundle() {
   fi
 }
 
-function clear-docker() {
-  docker system prune -a -f --volumes
+## Networking
+function list-ports() {
+  sudo lsof -i -P | grep LISTEN | grep :$PORT;
 }
 
+## Google Cloud Platform
 function gcloud-adc() {
   gcloud auth login --update-adc
 }
@@ -195,10 +208,6 @@ function vs() {
     fi
 }
 
-function mmdc() {
-  npx @mermaid-js/mermaid-cli $@;
-}
-
 function use-gcloud-project () {
   gcloud config set project "$1";
 }
@@ -213,14 +222,6 @@ function impersonate() {
 
 function unimpersonate() {
     gcloud config unset auth/impersonate_service_account
-}
-
-function kill-docker() {
-  killall Docker && open /Applications/Docker.app;
-}
-
-function list-ports() {
-  sudo lsof -i -P | grep LISTEN | grep :$PORT;
 }
 
 function cloudsql() {
@@ -256,14 +257,6 @@ function connect() {
     psql -h 127.0.0.1 -p 54320  -d "${CONTEXT}"
 }
 
-function uuid() {
-    uuidgen | tr '[:upper:]' '[:lower:]'
-}
-
-function clear-branches() {
-  git branch --merged | grep -v \* | xargs git branch -D 
-}
-
 function kex() {
   NS="$1"
   NAME="$2"
@@ -280,7 +273,25 @@ function esproxy() {
   fg
 }
 
-export VAULT_ADDR=https://vault.stallions.dev/
+# ID Generators
+function vin() {
+  echo "$(curl -sS https://randomvin.com/getvin.php\?type\=fake | tr -d '[:space:]')"
+}
+
+function uuid() {
+    uuidgen | tr '[:upper:]' '[:lower:]'
+}
+
+# Docker
+function clear-docker() {
+  docker system prune -a -f --volumes
+}
+
+function kill-docker() {
+  killall Docker && open /Applications/Docker.app;
+}
+
+# Imports
 source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc;
 source ~/.nvmrc;
 source ~/.rvmrc;
