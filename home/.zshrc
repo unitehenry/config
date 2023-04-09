@@ -291,6 +291,10 @@ function kill-docker() {
   killall Docker && open /Applications/Docker.app;
 }
 
+function carbonyl() {
+  docker run --rm -ti fathyb/carbonyl $@;
+}
+
 # Imports
 source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc;
 source ~/.nvmrc;
