@@ -38,6 +38,10 @@ function op-password() {
   op item get $@ --format=json | jq -c -r '.fields[] | select(.id | contains("password")) | .value';
 }
 
+function op-code() {
+  op item get $@ --format=json | jq -c -r '.fields[] | select(.type | contains("OTP")) | .totp';
+}
+
 function op-delete() {
   op item delete $@;
 }
@@ -296,6 +300,7 @@ function carbonyl() {
 }
 
 # Imports
-source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc;
 source ~/.nvmrc;
 source ~/.rvmrc;
+
+[ -s "/Users/$(whoami)/.jabba/jabba.sh" ] && source "/Users/$(whoami)/.jabba/jabba.sh"
