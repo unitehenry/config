@@ -10,3 +10,5 @@ lvim.keys.visual_block_mode["<A-j>"] = false
 lvim.keys.visual_block_mode["<A-k>"] = false
 lvim.keys.visual_block_mode["J"] = false
 lvim.keys.visual_block_mode["K"] = false
+vim.cmd("set list!")
+vim.cmd("set lcs=eol:$")
