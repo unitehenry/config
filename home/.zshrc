@@ -299,8 +299,23 @@ function carbonyl() {
   docker run --rm -ti fathyb/carbonyl $@;
 }
 
+function pgadmin() {
+  docker run \
+    -e PGADMIN_DEFAULT_EMAIL='henry@getpoint.io' \
+    -e PGADMIN_DEFAULT_PASSWORD='password' \
+    -p 4041:80 \
+    --rm \
+    'dpage/pgadmin4:7'
+}
+
 # Imports
 source ~/.nvmrc;
 source ~/.rvmrc;
 
+if [ -s "/Users/$(whoami)/.lombok/lombok.jar" ]
+then
+  export JDTLS_JVM_ARGS="-javaagent:/Users/$(whoami)/.lombok/lombok.jar";
+fi
 [ -s "/Users/$(whoami)/.jabba/jabba.sh" ] && source "/Users/$(whoami)/.jabba/jabba.sh"
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+export PATH="/Users/$(whoami)/.local/bin:$PATH"
