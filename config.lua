@@ -12,3 +12,5 @@ lvim.keys.visual_block_mode["J"] = false
 lvim.keys.visual_block_mode["K"] = false
 vim.cmd("set list!")
 vim.cmd("set lcs=eol:$")
+vim.cmd("set cursorline")
+vim.cmd("set wrap")
