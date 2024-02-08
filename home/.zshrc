@@ -308,6 +308,14 @@ function pgadmin() {
     'dpage/pgadmin4:7'
 }
 
+function clear-jdtls() {
+  sudo rm -rf **/.settings;
+  sudo rm -rf **/.project;
+  sudo rm -rf ~/.cache;
+  sudo rm -rf ~/.gradle;
+  sudo rm -rf .gradle;
+}
+
 # Imports
 source ~/.nvmrc;
 source ~/.rvmrc;
