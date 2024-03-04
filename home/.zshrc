@@ -316,14 +316,27 @@ function clear-jdtls() {
   sudo rm -rf .gradle;
 }
 
+function set-mouse-sensitivity() {
+  defaults write -g com.apple.mouse.scaling $@;
+  echo 'computer must restart to set mouse sensitivity';
+}
+
 # Imports
 source ~/.nvmrc;
 source ~/.rvmrc;
+
+# bun completions
+[ -s "/Users/henryunite/.bun/_bun" ] && source "/Users/henryunite/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
 
 if [ -s "/Users/$(whoami)/.lombok/lombok.jar" ]
 then
   export JDTLS_JVM_ARGS="-javaagent:/Users/$(whoami)/.lombok/lombok.jar";
 fi
+
 [ -s "/Users/$(whoami)/.jabba/jabba.sh" ] && source "/Users/$(whoami)/.jabba/jabba.sh"
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 export PATH="/Users/$(whoami)/.local/bin:$PATH"
