@@ -321,6 +321,10 @@ function set-mouse-sensitivity() {
   echo 'computer must restart to set mouse sensitivity';
 }
 
+function get-file-count() {
+  ls -1q * | wc -l;
+}
+
 # Imports
 source ~/.nvmrc;
 source ~/.rvmrc;
