@@ -1,0 +1,8 @@
+{
+  "java.configuration.runtimes": [
+    {
+      "name": "JavaSE-21",
+      "path": "/Users/henryunite/.jabba/jdk/openjdk@1.21.2/Contents/Home"
+    }
+  ]
+}
