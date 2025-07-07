@@ -1,27 +1,38 @@
+# credits to theova/base16-qutebrowser for the original template
 
-config.load_autoconfig(True)
-
+config.load_autoconfig(False)
 c.editor.command = ["kitty", "vim", "{file}"]
-
 c.content.private_browsing = True
-
 c.fonts.default_size = '20px'
+c.qt.args = [ 'disable-features=PermissionElement' ]
 
-# base16 colors but with variable names that
+##########
+# COLORS #
+##########
+
+# base16 colors but with variable names that 
 # reflect what the color is mainly used for
 
 bg_default = "#282c34"          # main shade darkest
 bg_lighter = "#353b45"
 bg_selection = "#3e4451"
+# "#545862"
 fg_disabled = "#565c64"
 fg_default = "#abb2bf"
+# "#b6bdca"
 bg_lightest = "#c8ccd4"         # main shade lightest
 fg_error = "#e06c75"            # red
+# "#d19a66"                     # orange
 bg_hint = "#e5c07b"             # yellow
 fg_matched_text = "#98c379"     # green
 bg_passthrough_mode = "#56b6c2" # teal
 bg_insert_mode = "#61afef"      # blue
 bg_warning = "#c678dd"          # purple
+# "#be5046"                     # dark red
+
+############
+# SETTINGS #
+############
 
 # Text color of the completion widget. May be a single color to use for
 # all columns or a list of three colors, one for each column.
@@ -108,7 +119,8 @@ c.colors.downloads.error.fg = fg_error
 # Font color for hints.
 c.colors.hints.fg = bg_default
 
-# Background color for hints. Note that you can use a `rgba(...)` value for transparency.
+# Background color for hints. Note that you can use a `rgba(...)` value
+# for transparency.
 c.colors.hints.bg = bg_hint
 
 # Font color for the matched part of hints.
@@ -296,5 +308,6 @@ c.colors.tabs.selected.even.fg = fg_default
 # Background color of selected even tabs.
 c.colors.tabs.selected.even.bg = bg_selection
 
-# Background color for webpages if unset (or empty to use the theme's color).
+# Background color for webpages if unset (or empty to use the theme's
+# color).
 # c.colors.webpage.bg = bg_default
