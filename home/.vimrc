@@ -18,6 +18,7 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
+Plugin 'flazz/vim-colorschemes'
 Plugin 'vim-fuzzbox/fuzzbox.vim'
 Plugin 'jparise/vim-graphql'
 Plugin 'drtom/fsharp-vim'
