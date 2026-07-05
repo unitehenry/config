@@ -1,0 +1,2 @@
+#!/bin/bash
+seconds=0; while true; do printf "\r%s" "$(date -u -d "@$seconds" +%H:%M:%S)"; ((seconds++)); sleep 1; done

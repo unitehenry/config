@@ -1,0 +1,5 @@
+#!/bin/bash
+# https://github.com/wroberts/rogauracore
+
+rogauracore green;
+rogauracore brightness 3;

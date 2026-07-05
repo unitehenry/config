@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+hyprctl setcursor Default 26

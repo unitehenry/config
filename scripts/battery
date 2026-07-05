@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cat /sys/devices/LNXSYSTM:00/LNXSYBUS:00/PNP0A08:00/device:09/PNP0C0A:03/power_supply/BAT0/capacity;
+read;

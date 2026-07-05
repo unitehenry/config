@@ -1,0 +1,2 @@
+#!/bin/bash
+nohup firefoxpwa site launch 01K9TZBFZDY4MJ8MMB1AFWYKRC > /dev/null
